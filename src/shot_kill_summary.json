@@ -1,0 +1,18 @@
+{
+  "total_kills": 137,
+  "player_vs_player_kills": 131,
+  "shot_kills": 131,
+  "shot_kill_share_of_all": 0.9562043795620438,
+  "distance_rows_matched": 131,
+  "distance_rows_missing": 0,
+  "mean_duel_radius": 631.2807155860474,
+  "duel_radius_used": 900.0,
+  "radius_source": "manual_parameter",
+  "median_shot_kill_distance": 601.1531172095978,
+  "min_shot_kill_distance": 32.84439792394351,
+  "max_shot_kill_distance": 1551.9289523744235,
+  "duels_within_radius": 106,
+  "non_duels_outside_radius": 25,
+  "duel_share_within_radius": 0.8091603053435115,
+  "non_shot_or_non_player_kills": 6
+}
