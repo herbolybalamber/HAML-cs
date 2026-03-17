@@ -219,19 +219,21 @@ def extract_duels(demo_path: Path, output_csv: Path, tickrate: int = 64) -> pd.D
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="CS:GO .dem párbajok kinyerése (distance, angle, weapon, obstacle, death)")
-    parser.add_argument("--demo", type=str, default="heroic-vs-parivision-ancient.dem", help="Input .dem fájl")
-    parser.add_argument("--out", type=str, default="extracted_duels.csv", help="Output CSV")
+    parser.add_argument("--demo", type=str, default="../data/raw/heroic-vs-parivision-ancient.dem", help="Input .dem fájl")
+    parser.add_argument("--out", type=str, default="../data/processed/extracted_duels.csv", help="Output CSV")
     parser.add_argument("--tickrate", type=int, default=64, help="Demó tickrate (alapértelmezett: 64)")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    demo_path = Path(args.demo)
+    script_dir = Path(__file__).resolve().parent
+    demo_path = (script_dir / args.demo).resolve() if not Path(args.demo).is_absolute() else Path(args.demo)
     if not demo_path.exists():
         raise FileNotFoundError(f"A demó fájl nem található: {demo_path}")
 
-    output_path = Path(args.out)
+    output_path = (script_dir / args.out).resolve() if not Path(args.out).is_absolute() else Path(args.out)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     data = extract_duels(demo_path=demo_path, output_csv=output_path, tickrate=args.tickrate)
     print(f"Kész: {len(data)} párbaj mentve ide: {output_path}")
 

@@ -215,15 +215,15 @@ def save_outputs(analyzed: pd.DataFrame, summary: dict, summary_path: Path, clas
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Kill- es tavolsagalapu parbajelemzes CS demohoz")
     parser.add_argument("config_positional", nargs="?", default=None, help="Opcionális config JSON pozíciós paraméterként")
-    parser.add_argument("--config", type=str, default="shot_kill_config.json", help="Konfiguracios JSON fajl")
-    parser.add_argument("--demo", type=str, default="heroic-vs-parivision-ancient.dem", help="Input .dem fajl")
-    parser.add_argument("--extracted", type=str, default="extracted_duels.csv", help="Elore kinyert tavolsag CSV")
-    parser.add_argument("--out-plot", type=str, default="shot_kill_analysis.png", help="Output abra PNG")
-    parser.add_argument("--out-summary", type=str, default="shot_kill_summary.json", help="Output osszefoglalo JSON")
+    parser.add_argument("--config", type=str, default="../config/shot_kill_config.json", help="Konfiguracios JSON fajl")
+    parser.add_argument("--demo", type=str, default="../data/raw/heroic-vs-parivision-ancient.dem", help="Input .dem fajl")
+    parser.add_argument("--extracted", type=str, default="../data/processed/extracted_duels.csv", help="Elore kinyert tavolsag CSV")
+    parser.add_argument("--out-plot", type=str, default="../outputs/plots/shot_kill_analysis.png", help="Output abra PNG")
+    parser.add_argument("--out-summary", type=str, default="../data/processed/shot_kill_summary.json", help="Output osszefoglalo JSON")
     parser.add_argument(
         "--out-classified",
         type=str,
-        default="shot_kill_distances.csv",
+        default="../data/processed/shot_kill_distances.csv",
         help="Output CSV a tavolsaggal es parbaj-besorolassal",
     )
     parser.add_argument(

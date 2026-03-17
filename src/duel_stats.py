@@ -50,14 +50,20 @@ def build_weapon_stats(df: pd.DataFrame) -> pd.DataFrame:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Statisztika készítése a kinyert párbajokból")
-    parser.add_argument("--input", type=str, default="extracted_duels.csv", help="Input CSV")
-    parser.add_argument("--out-weapon", type=str, default="duel_stats_by_weapon.csv", help="Fegyver szerinti statisztika CSV")
+    parser.add_argument("--input", type=str, default="../data/processed/extracted_duels.csv", help="Input CSV")
+    parser.add_argument(
+        "--out-weapon",
+        type=str,
+        default="../data/processed/duel_stats_by_weapon.csv",
+        help="Fegyver szerinti statisztika CSV",
+    )
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    input_path = Path(args.input)
+    script_dir = Path(__file__).resolve().parent
+    input_path = (script_dir / args.input).resolve() if not Path(args.input).is_absolute() else Path(args.input)
     if not input_path.exists():
         raise FileNotFoundError(f"Nincs ilyen input fájl: {input_path}")
 
@@ -82,8 +88,10 @@ def main() -> None:
     print_summary(summary)
 
     weapon_stats = build_weapon_stats(df)
-    weapon_stats.to_csv(args.out_weapon, index=False)
-    print(f"\nMentve: {args.out_weapon}")
+    out_weapon_path = (script_dir / args.out_weapon).resolve() if not Path(args.out_weapon).is_absolute() else Path(args.out_weapon)
+    out_weapon_path.parent.mkdir(parents=True, exist_ok=True)
+    weapon_stats.to_csv(out_weapon_path, index=False)
+    print(f"\nMentve: {out_weapon_path}")
 
 
 if __name__ == "__main__":
